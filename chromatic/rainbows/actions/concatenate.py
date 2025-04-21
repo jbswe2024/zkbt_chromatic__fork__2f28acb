@@ -54,11 +54,17 @@ def concatenate_in_time(self, other, maximum_fractional_difference=0.01):
 
     # loop through timelike quantities
     for k in self.timelike:
-        new.timelike[k] = np.hstack([self.timelike[k], other.timelike[k]])
+        if k in other.timelike:
+            new.timelike[k] = np.hstack([self.timelike[k], other.timelike[k]])
+        else:
+            warnings.warn(f"Key '{k}' not found in other.timelike, skipping concatenation for this key")
 
     # loop through fluxlike quantities
     for k in self.fluxlike:
-        new.fluxlike[k] = np.hstack([self.fluxlike[k], other.fluxlike[k]])
+        if k in other.fluxlike:
+            new.fluxlike[k] = np.hstack([self.fluxlike[k], other.fluxlike[k]])
+        else:
+            warnings.warn(f"Key '{k}' not found in other.fluxlike, skipping concatenation for this key")
 
     # append the history entry to the new Rainbow
     new._record_history_entry(h)
@@ -106,11 +112,17 @@ def concatenate_in_wavelength(self, other, maximum_fractional_difference=0.01):
 
     # loop through wavelike quantities
     for k in self.wavelike:
-        new.wavelike[k] = np.hstack([self.wavelike[k], other.wavelike[k]])
+        if k in other.wavelike:
+            new.wavelike[k] = np.hstack([self.wavelike[k], other.wavelike[k]])
+        else:
+            warnings.warn(f"Key '{k}' not found in other.wavelike, skipping concatenation for this key")
 
     # loop through fluxlike quantities
     for k in self.fluxlike:
-        new.fluxlike[k] = np.hstack([self.fluxlike[k], other.fluxlike[k]])
+        if k in other.fluxlike:
+            new.fluxlike[k] = np.hstack([self.fluxlike[k], other.fluxlike[k]])
+        else:
+            warnings.warn(f"Key '{k}' not found in other.fluxlike, skipping concatenation for this key")
 
     # append the history entry to the new Rainbow
     new._record_history_entry(h)
